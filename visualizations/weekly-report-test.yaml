@@ -1,0 +1,25 @@
+name: weekly-report-test
+data_source:
+  type: markdown
+  path: ~/.openclaw/workspace/test_data/projects/week10.md
+  table_selector: "任务完成情况"
+
+charts:
+  - type: pie
+    title: "任务状态分布"
+    field: status
+    colors:
+      已完成: "#52c41a"
+      进行中: "#1890ff"
+      未开始: "#d9d9d9"
+
+  - type: bar
+    title: "工时统计"
+    x_field: task
+    y_field: hours
+    orientation: vertical
+
+output:
+  type: png
+  path: ~/.openclaw/workspace/charts/weekly-report-test/
+  safety_level: green

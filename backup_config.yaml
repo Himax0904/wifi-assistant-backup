@@ -1,0 +1,80 @@
+# 自动备份配置
+# 文件位置：~/.openclaw/workspace/backup_config.yaml
+
+# 全局设置
+global:
+  backup_root: ~/backups/
+  log_level: info
+  notify_on_failure: true
+  notify_channel: feishu
+
+# 备份任务
+backups:
+  # 工作区每日增量备份
+  - name: workspace-daily
+    description: 工作区每日备份
+    source: ~/.openclaw/workspace/
+    destination: ~/backups/workspace/daily/
+    schedule: "0 2 * * *"  # 每天 02:00
+    type: incremental
+    retention:
+      days: 30
+      versions: 7
+    exclude:
+      - "*.log"
+      - "*.tmp"
+      - "node_modules/"
+      - ".git/"
+      - "vectorstore/"
+      - "charts/"
+      - "__pycache__/"
+    safety_level: green
+
+  # 工作区每周全量备份
+  - name: workspace-weekly
+    description: 工作区每周全量备份
+    source: ~/.openclaw/workspace/
+    destination: ~/backups/workspace/weekly/
+    schedule: "0 3 * * 0"  # 每周日 03:00
+    type: full
+    retention:
+      weeks: 12
+    exclude:
+      - "*.log"
+      - "node_modules/"
+      - ".git/"
+      - "vectorstore/"
+    safety_level: green
+
+  # 飞书文档同步 (黄线 - 需确认)
+  - name: feishu-docs
+    description: 飞书文档同步
+    source: feishu_docs
+    destination: ~/backups/feishu/
+    schedule: "0 3 * * *"  # 每天 03:00
+    type: sync
+    docs: []  # 待 MAX 配置具体文档 token
+    safety_level: yellow
+
+  # 系统配置备份
+  - name: config-files
+    description: 系统配置备份
+    source: 
+      - ~/.bashrc
+      - ~/.bash_profile
+      - ~/.ssh/config
+      - ~/.openclaw/config.json
+    destination: ~/backups/configs/
+    schedule: "0 4 * * *"  # 每天 04:00
+    type: full
+    retention:
+      versions: 10
+    safety_level: yellow
+    encrypt: false
+
+# 恢复验证
+verification:
+  schedule: "0 5 * * 0"  # 每周日 05:00
+  sample_rate: 0.1  # 随机抽取 10% 文件验证
+  test_restore: true
+  report: true

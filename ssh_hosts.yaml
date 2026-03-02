@@ -1,0 +1,62 @@
+# SSH 主机配置
+# 文件位置：~/.openclaw/workspace/ssh_hosts.yaml
+
+hosts:
+  # 示例：家庭服务器
+  - name: home-server
+    host: 192.168.1.100
+    user: admin
+    port: 22
+    auth: key
+    key_path: ~/.ssh/id_rsa
+    safety_level: green
+    tags: [local, nas]
+    
+  # 示例：生产 VPS
+  - name: vps-prod
+    host: x.x.x.x
+    user: root
+    port: 22
+    auth: key
+    key_path: ~/.ssh/vps_key
+    safety_level: yellow
+    tags: [prod, web]
+
+# 命令白名单 (绿线操作 - 可直接执行)
+green_commands:
+  - "df -h"
+  - "free -m"
+  - "top -bn1"
+  - "ps aux"
+  - "systemctl status *"
+  - "docker ps"
+  - "docker stats"
+  - "tail -f *"
+  - "tail -*"
+  - "cat *"
+  - "less *"
+  - "head -*"
+  - "ls -la"
+  - "ls -lh"
+  - "uptime"
+  - "netstat -tulpn"
+  - "ss -tulpn"
+  - "curl *"
+  - "wget *"
+  - "journalctl -*"
+
+# 命令黑名单 (永远禁止执行)
+blacklist_commands:
+  - "rm -rf /"
+  - "rm -rf /*"
+  - "mkfs.*"
+  - "fdisk *"
+  - "dd if=/dev/zero"
+  - ":(){:|:&};:"
+  - "chmod -R 777 /"
+  - "chmod -R 777 /*"
+  - "chown -R root:root /"
+  - "shutdown -r now"
+  - "reboot"
+  - "poweroff"
+  - "halt"

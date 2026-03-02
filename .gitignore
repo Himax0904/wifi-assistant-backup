@@ -1,0 +1,31 @@
+# Wi-Fi 助理 Git 备份 - 忽略文件
+
+# 敏感数据
+*.secret.*
+*password*
+*token*
+*secret*
+
+# 向量数据库（可能包含敏感数据）
+vectorstore/
+
+# 临时文件和日志
+*.log
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+
+# 大型测试数据（可选）
+test_data/
+charts/
+
+# 备份文件
+*.backup
+*.backup.*
+wifi-backup/
+wifi-migration-test/
+
+# 导出文件
+*_export/
+*.tar.gz

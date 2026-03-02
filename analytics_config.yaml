@@ -1,0 +1,110 @@
+# 知识与数据分析配置
+# 文件位置：~/.openclaw/workspace/analytics_config.yaml
+
+# 全局设置
+global:
+  output_format: markdown
+  include_charts: true
+  language: zh-CN
+  notify_on_complete: true
+  output_dir: ~/.openclaw/workspace/reports/
+
+# 数据源
+data_sources:
+  local:
+    - path: ~/.openclaw/workspace/memory/
+      type: markdown
+      tags: [daily, memory]
+    - path: ~/.openclaw/workspace/test_data/
+      type: markdown
+      tags: [test, projects]
+  
+  feishu:
+    # 待 MAX 配置具体文档 token
+    - doc_token: ""
+      title: "日报"
+      type: docx
+    - doc_token: ""
+      title: "周报"
+      type: docx
+  
+  files: []
+    # 可添加 CSV/Excel 文件
+    # - path: ~/data/tasks.csv
+    #   type: csv
+
+# 分析任务
+analyses:
+  # 每周工作总结
+  - name: weekly-summary
+    description: 每周工作总结
+    sources:
+      - type: local
+        path: ~/.openclaw/workspace/memory/
+        date_range: last_7_days
+    metrics:
+      - name: task_completion_rate
+        description: 任务完成率
+        formula: completed / total * 100
+      - name: time_spent
+        description: 总工时
+        unit: hours
+      - name: skill_development
+        description: 技能开发数量
+        count: skills_created
+    output:
+      - summary_text
+      - trend_chart
+      - metric_table
+    schedule: "0 18 * * 5"  # 每周五 18:00
+    safety_level: green
+
+  # 项目进度分析
+  - name: project-progress
+    description: 项目进度分析
+    sources:
+      - type: local
+        path: ~/.openclaw/workspace/test_data/projects/
+    analysis:
+      - task_status_distribution
+      - time_tracking
+      - risk_identification
+    output:
+      - progress_report
+      - risk_alerts
+      - recommendations
+    safety_level: green
+
+  # 记忆文件洞察 (黄线 - 需确认)
+  - name: memory-insights
+    description: 记忆文件洞察
+    sources:
+      - type: local
+        path: ~/.openclaw/workspace/memory/
+    analysis:
+      - keyword_extraction
+      - topic_clustering
+      - timeline_summary
+    output:
+      - insights_report
+      - keyword_cloud
+      - topic_summary
+    safety_level: yellow
+
+  # 月度综合报告
+  - name: monthly-report
+    description: 月度综合报告
+    sources:
+      - type: all
+    metrics:
+      - all_metrics
+    analysis:
+      - trend_analysis
+      - yoy_comparison
+      - mom_comparison
+    output:
+      - full_report
+      - executive_summary
+      - charts_package
+    schedule: "0 10 1 * *"  # 每月 1 号 10:00
+    safety_level: green

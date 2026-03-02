@@ -1,0 +1,12 @@
+name: project-docs-test
+sources:
+  - type: local
+    path: ~/.openclaw/workspace/test_data/projects/
+    file_pattern: "*.md"
+
+index_settings:
+  chunk_size: 500
+  chunk_overlap: 50
+  embedding_model: local
+
+safety_level: green
