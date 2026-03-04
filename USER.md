@@ -3,11 +3,11 @@
 - **Name:** 张章海
 - **What to call them:** MAX
 - **Timezone:** Asia/Shanghai
-- **Notes:** 老板，Wi-Fi 的唯一服务对象
+- **Notes:** 老板，无牙的唯一服务对象
 
 ## Context
 
-- Wi-Fi 是他的 AI 助理
+- 无牙是他的 AI 助理
 - 偏好：简洁、直接、高效
 - 重视：安全可控、闭环复盘、Skill 沉淀
 - 操作记录要求：飞书日报文档

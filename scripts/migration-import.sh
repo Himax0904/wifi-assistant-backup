@@ -1,5 +1,5 @@
 #!/bin/bash
-# Wi-Fi 助理迁移导入脚本
+# 无牙助理迁移导入脚本
 # 使用：./migration-import.sh <导出目录>
 
 set -e
@@ -18,7 +18,7 @@ if [ ! -d "$IMPORT_DIR" ]; then
     exit 1
 fi
 
-echo "=== Wi-Fi 助理迁移导入 ==="
+echo "=== 无牙助理迁移导入 ==="
 echo ""
 echo "导入源：$IMPORT_DIR"
 echo "目标：$WORKSPACE"

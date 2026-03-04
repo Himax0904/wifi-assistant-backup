@@ -1,12 +1,12 @@
 #!/bin/bash
-# Wi-Fi 助理迁移导出脚本
+# 无牙助理迁移导出脚本
 # 使用：./migration-export.sh <导出目录>
 
 set -e
 
 EXPORT_DIR="${1:-~/wifi-backup/$(date +%Y-%m-%d_%H-%M-%S)}"
 
-echo "=== Wi-Fi 助理迁移导出 ==="
+echo "=== 无牙助理迁移导出 ==="
 echo "导出目录：$EXPORT_DIR"
 echo ""
 
@@ -57,7 +57,7 @@ fi
 # 创建导出清单
 echo "[7/7] 创建导出清单..."
 cat > "$EXPORT_DIR/EXPORT_MANIFEST.txt" << EOF
-Wi-Fi 助理迁移导出清单
+无牙助理迁移导出清单
 ========================
 导出时间：$(date)
 主机名：$(hostname)

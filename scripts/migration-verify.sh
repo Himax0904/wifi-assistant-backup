@@ -1,12 +1,12 @@
 #!/bin/bash
-# Wi-Fi 助理迁移验证脚本
+# 无牙助理迁移验证脚本
 # 使用：./migration-verify.sh [验证目录]
 
 set -e
 
 TARGET_DIR="${1:-~/.openclaw/workspace}"
 
-echo "=== Wi-Fi 助理迁移验证 ==="
+echo "=== 无牙助理迁移验证 ==="
 echo "验证目录：$TARGET_DIR"
 echo ""
 

@@ -1,13 +1,13 @@
 ---
 name: migration-tool
-description: 迁移工具技能。提供 Wi-Fi 助理技能库和本地数据的完整导出、导入、验证流程。Use when: 需要迁移助理到新环境、备份技能库、恢复数据、跨设备同步。
+description: 迁移工具技能。提供 无牙助理技能库和本地数据的完整导出、导入、验证流程。Use when: 需要迁移助理到新环境、备份技能库、恢复数据、跨设备同步。
 ---
 
 # Migration Tool 技能
 
 ## 概述
 
-本技能提供完整的迁移方案，用于转移 Wi-Fi 助理的技能库、配置文件、记忆数据到新环境。
+本技能提供完整的迁移方案，用于转移 无牙助理的技能库、配置文件、记忆数据到新环境。
 
 **迁移内容**:
 - 技能库 (`skills/`)
@@ -30,8 +30,8 @@ description: 迁移工具技能。提供 Wi-Fi 助理技能库和本地数据的
 cd ~/.openclaw/workspace
 
 # 创建导出目录
-mkdir -p ~/wifi-backup/$(date +%Y-%m-%d_%H-%M-%S)
-EXPORT_DIR=~/wifi-backup/$(date +%Y-%m-%d_%H-%M-%S)
+mkdir -p ~/wuya-backup/$(date +%Y-%m-%d_%H-%M-%S)
+EXPORT_DIR=~/wuya-backup/$(date +%Y-%m-%d_%H-%M-%S)
 ```
 
 ### 步骤 2: 运行导出脚本
@@ -58,7 +58,7 @@ ls -lh $EXPORT_DIR/
 scp -r $EXPORT_DIR user@new-host:~/
 
 # 方式 2: 压缩后传输
-tar -czf ~/wifi-backup.tar.gz -C ~/ wifi-backup/
+tar -czf ~/wuya-backup.tar.gz -C ~/ wuya-backup/
 
 # 方式 3: 云存储同步
 # 将 $EXPORT_DIR 同步到飞书云盘/其他云存储
@@ -86,8 +86,8 @@ cd ~/.openclaw/workspace
 ./scripts/migration-import.sh /path/to/export/dir
 
 # 或从压缩包导入
-tar -xzf ~/wifi-backup.tar.gz -C ~/
-./scripts/migration-import.sh ~/wifi-backup/$(date +%Y-%m-%d)
+tar -xzf ~/wuya-backup.tar.gz -C ~/
+./scripts/migration-import.sh ~/wuya-backup/$(date +%Y-%m-%d)
 ```
 
 ### 步骤 3: 验证导入
@@ -121,13 +121,13 @@ openclaw reload
 
 ```bash
 #!/bin/bash
-# Wi-Fi 助理迁移导出脚本
+# 无牙助理迁移导出脚本
 
 set -e
 
 EXPORT_DIR="${1:-./wifi-export-$(date +%Y%m-%d_%H%M%S)}"
 
-echo "=== Wi-Fi 助理迁移导出 ==="
+echo "=== 无牙助理迁移导出 ==="
 echo "导出目录：$EXPORT_DIR"
 
 # 创建导出目录
@@ -157,7 +157,7 @@ cp -r .openclaw/workspace-state.json "$EXPORT_DIR/" 2>/dev/null || true
 # 创建导出清单
 echo "创建导出清单..."
 cat > "$EXPORT_DIR/EXPORT_MANIFEST.txt" << EOF
-Wi-Fi 助理迁移导出清单
+无牙助理迁移导出清单
 导出时间：$(date)
 主机名：$(hostname)
 OpenClaw 版本：$(openclaw --version 2>/dev/null || echo "unknown")
@@ -186,7 +186,7 @@ echo "总大小：$(du -sh "$EXPORT_DIR.tar.gz" | cut -f1)"
 
 ```bash
 #!/bin/bash
-# Wi-Fi 助理迁移导入脚本
+# 无牙助理迁移导入脚本
 
 set -e
 
@@ -204,7 +204,7 @@ if [ ! -d "$IMPORT_DIR" ]; then
     exit 1
 fi
 
-echo "=== Wi-Fi 助理迁移导入 ==="
+echo "=== 无牙助理迁移导入 ==="
 echo "导入源：$IMPORT_DIR"
 echo "目标：$WORKSPACE"
 
@@ -260,13 +260,13 @@ echo "请运行验证脚本：./scripts/migration-verify.sh $WORKSPACE"
 
 ```bash
 #!/bin/bash
-# Wi-Fi 助理迁移验证脚本
+# 无牙助理迁移验证脚本
 
 set -e
 
 TARGET_DIR="${1:-~/.openclaw/workspace}"
 
-echo "=== Wi-Fi 助理迁移验证 ==="
+echo "=== 无牙助理迁移验证 ==="
 echo "验证目录：$TARGET_DIR"
 
 ERRORS=0
@@ -344,13 +344,13 @@ fi
 ### 一键导出
 ```bash
 cd ~/.openclaw/workspace
-bash <(curl -s https://raw.githubusercontent.com/.../migration-export.sh) ~/wifi-backup
+bash <(curl -s https://raw.githubusercontent.com/.../migration-export.sh) ~/wuya-backup
 ```
 
 ### 一键导入
 ```bash
 cd ~/.openclaw/workspace
-bash <(curl -s https://raw.githubusercontent.com/.../migration-import.sh) ~/wifi-backup
+bash <(curl -s https://raw.githubusercontent.com/.../migration-import.sh) ~/wuya-backup
 ```
 
 ### 一键验证

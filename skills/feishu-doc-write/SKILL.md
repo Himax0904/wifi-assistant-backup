@@ -124,7 +124,7 @@ feishu_doc:
 feishu_doc:
   action: append
   doc_token: "doc_token"
-  content: "创建时间：2026-03-02 11:35\n创建者：Wi-Fi\n状态：完成"
+  content: "创建时间：2026-03-02 11:35\n创建者：无牙\n状态：完成"
 
 # 步骤 4: 添加技能列表
 feishu_doc:
